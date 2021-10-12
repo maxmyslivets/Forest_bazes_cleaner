@@ -8,15 +8,13 @@ from chooseFile import choose_file
 # создание класса окна приложения
 class App(tk.Tk):
 
-    textFile = []
-
     # изначально запускаемая функция по умолчанию
     def __init__(self):
         super().__init__()
 
         # конфигурация окна
         self.title('Чистка файла базы')
-        self.geometry('300x250')
+        #self.geometry('300x250')
         
         # создание меню программы
         menubar = tk.Menu(self)
@@ -28,10 +26,12 @@ class App(tk.Tk):
             tearoff=0
         )
 
+        self.textFile = []
+
         # добавление кнопок в меню файла
         fileMenu.add_command(
             label='Открыть файл',
-            command = self.textFile.append(str(self.readFile))
+            command = self.readFile
         )
         fileMenu.add_separator()
         fileMenu.add_command(
@@ -56,6 +56,7 @@ class App(tk.Tk):
         # конфигурация сетки
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
+        self.columnconfigure(3, weight=1)
 
         # поля меток
         labelInfo = ttk.Label(self, text='Ввод номеров KV через запятую')
@@ -65,18 +66,18 @@ class App(tk.Tk):
 
         # поле ввода номеров KV
         insertKVNumbers = ttk.Entry(width=40)
-        insertKVNumbers.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
+        insertKVNumbers.grid(column=1, row=1, sticky=tk.W, padx=5, pady=5)
         insertButton = ttk.Button(
             text = 'Убрать',
-            command = print(str(choose_file), insertKVNumbers.get())
+            command = print(self.textFile, insertKVNumbers.get())
         )
-        insertButton.grid(column=1, row=2, sticky=tk.E, padx=5, pady=5)
-       
+        insertButton.grid(column=3, row=1, sticky=tk.E, padx=5, pady=5)
+
 
     # чтение файла
     def readFile(self):
-        print()
-        return choose_file()
+        self.textFile.append(str(choose_file()))
+        
 
 # запуск приложения
 if __name__ == "__main__":
