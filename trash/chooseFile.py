@@ -19,7 +19,8 @@ def choose_file():
 
     if file:
         # чтение текстового файла
-        return file.read()
+        print(type(file.read()))
+        #return file.read().decode('cp1251').encode('utf-8')
 
     # если проблема с чтением файла: сообщение об ошибке
     else:
